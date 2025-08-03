@@ -23,7 +23,7 @@ public class InventoryEventProducer {
 	
 	private KafkaTemplate<String, InventoryEvent> kafkaTemplate;
 	
-	@Value("${spring.kafka.topic.inventory}")
+	@Value("${spring.kafka.consumer.group-id}")
 	private String inventoryTopic;
 	
 	@Autowired

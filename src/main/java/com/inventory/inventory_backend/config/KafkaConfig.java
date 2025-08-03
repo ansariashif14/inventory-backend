@@ -23,9 +23,20 @@ public class KafkaConfig {
 	@Value("${spring.kafka.bootstrap-servers}")
 	private String kafkaUrl;
 
+
     @Bean
     public ProducerFactory<String, InventoryEvent> producerFactory() {
+    	
+    	final String username = "<username>";
+        final String password = "<password>";
+        
         Map<String, Object> config = new HashMap<>();
+        
+//        config.put(SaslConfigs.SASL_MECHANISM, "<SCRAM-SHA-256 or SCRAM-SHA-512>");
+//        config.put(SaslConfigs.SASL_JAAS_CONFIG, String.format("org.apache.kafka.common.security.scram.ScramLoginModule required username=\"%s\" password=\"%s\";",
+//                username, password));
+//        config.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_SSL");
+        
         config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaUrl);
         config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);  // fixed
         config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
