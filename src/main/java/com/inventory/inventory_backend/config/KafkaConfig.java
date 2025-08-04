@@ -29,8 +29,8 @@ public class KafkaConfig {
     @Bean
     public ProducerFactory<String, InventoryEvent> producerFactory() {
     	
-    	final String username = "ashif-kafka";
-        final String password = "YM4c38AtFIajvUdK7q08UIPWJVQdaV";
+    	final String username = "ASHIF-KAFKA";
+        final String password = "0vsR8BAEKTNSyu4aAMHgLPGUGlZTQ0";
         
         Map<String, Object> config = new HashMap<>();
         
