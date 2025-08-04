@@ -3,7 +3,9 @@ package com.inventory.inventory_backend.config;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.kafka.clients.CommonClientConfigs;
 import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.common.config.SaslConfigs;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -27,15 +29,15 @@ public class KafkaConfig {
     @Bean
     public ProducerFactory<String, InventoryEvent> producerFactory() {
     	
-    	final String username = "<username>";
-        final String password = "<password>";
+    	final String username = "ashif-kafka";
+        final String password = "YM4c38AtFIajvUdK7q08UIPWJVQdaV";
         
         Map<String, Object> config = new HashMap<>();
         
-//        config.put(SaslConfigs.SASL_MECHANISM, "<SCRAM-SHA-256 or SCRAM-SHA-512>");
-//        config.put(SaslConfigs.SASL_JAAS_CONFIG, String.format("org.apache.kafka.common.security.scram.ScramLoginModule required username=\"%s\" password=\"%s\";",
-//                username, password));
-//        config.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_SSL");
+        config.put(SaslConfigs.SASL_MECHANISM, "<SCRAM-SHA-256 or SCRAM-SHA-512>");
+        config.put(SaslConfigs.SASL_JAAS_CONFIG, String.format("org.apache.kafka.common.security.scram.ScramLoginModule required username=\"%s\" password=\"%s\";",
+                username, password));
+        config.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_SSL");
         
         config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaUrl);
         config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);  // fixed
