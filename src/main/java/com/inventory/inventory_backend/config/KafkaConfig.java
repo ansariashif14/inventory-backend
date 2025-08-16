@@ -30,13 +30,13 @@ public class KafkaConfig {
     public ProducerFactory<String, InventoryEvent> producerFactory() {
     	
     	final String username = "ASHIF-KAFKA";
-        final String password = "0vsR8BAEKTNSyu4aAMHgLPGUGlZTQ0";
+        final String password = "RpIZpRqRWrZVSvR3ubTw6xA1bStWaD";
         
         Map<String, Object> config = new HashMap<>();
         
-        config.put(SaslConfigs.SASL_MECHANISM, "<SCRAM-SHA-256 or SCRAM-SHA-512>");
-        config.put(SaslConfigs.SASL_JAAS_CONFIG, String.format("org.apache.kafka.common.security.scram.ScramLoginModule required username=\"%s\" password=\"%s\";",
-                username, password));
+        config.put(SaslConfigs.SASL_MECHANISM, "SCRAM-SHA-256");
+        config.put(SaslConfigs.SASL_JAAS_CONFIG,
+                "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"ASHIF_KAFKA\" password=\"jGHjU2M9wyH3KypgROYehvyPWHhqwW\";");
         config.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_SSL");
         
         config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaUrl);
