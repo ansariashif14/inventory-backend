@@ -54,18 +54,18 @@ public class AuthController {
         Optional<User> userdata = repo.findByUsername(request.getUsername());
 
         if (user != null && userdata.isPresent() &&
-            userdata.get().getPassword().equals(user.getPassword())) {  // don't use equalsIgnoreCase for passwords
+            userdata.get().getPassword().equals(user.getPassword())) { 
 
             String token = jwtUtils.generateToken(user.getUsername());
 
-            // (Optional) Set cookie if you still want HttpOnly
+ 
             Cookie cookie = new Cookie("jwt", token);
             cookie.setHttpOnly(true);
             cookie.setPath("/");
             cookie.setMaxAge((int) (jwtExpiration / 1000));
             response.addCookie(cookie);
 
-            // ✅ Return token as JSON instead of plain string
+          
             return ResponseEntity.ok(Map.of(
                 "token", token,
                 "username", user.getUsername()

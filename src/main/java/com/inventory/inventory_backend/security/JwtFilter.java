@@ -32,13 +32,13 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String token = null;
 
-        // 1️⃣ Try from "Authorization" header
+        
         String authHeader = request.getHeader("Authorization");
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7);
         }
 
-        // 2️⃣ If not found, try from Cookie
+       
         if (token == null) {
             Cookie[] cookies = request.getCookies();
             if (cookies != null) {
@@ -50,7 +50,7 @@ public class JwtFilter extends OncePerRequestFilter {
             }
         }
 
-        // 3️⃣ Validate token & set authentication
+        
         if (token != null && jwtUtils.validateToken(token)) {
             String username = jwtUtils.getUsername(token);
             UserDetails userDetails = userService.loadUserByUsername(username);

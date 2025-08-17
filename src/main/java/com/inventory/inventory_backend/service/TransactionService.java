@@ -43,7 +43,7 @@ public class TransactionService {
                 .orElseGet(() -> {
                     Product p = new Product();
                     p.setProductId(evt.getProductId());
-                    p.setName(evt.getProductId()); // Set name same as ID or update
+                    p.setName(evt.getProductId());
                     return productRepo.save(p);
                 });
 

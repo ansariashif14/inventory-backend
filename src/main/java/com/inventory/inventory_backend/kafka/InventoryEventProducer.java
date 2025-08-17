@@ -36,7 +36,7 @@ public class InventoryEventProducer {
     	
         try {
             SendResult<String, InventoryEvent> result =
-                kafkaTemplate.send(inventoryTopic, event.getProductId(), event).get(); // ⬅️ blocks here
+                kafkaTemplate.send(inventoryTopic, event.getProductId(), event).get(); 
 
             System.out.printf("✅ Sent to topic %s | Partition: %d | Offset: %d%n",
                     result.getRecordMetadata().topic(),

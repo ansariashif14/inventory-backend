@@ -14,10 +14,10 @@ import java.time.Instant;
 @Getter
 @Setter
 public class TransactionDTO {
-    private String type;           // "purchase" or "sale"
+    private String type;          
     private String productId;
     private int quantity;
-    private BigDecimal totalCost; // unitPrice for purchase, totalCost for sale
+    private BigDecimal totalCost; 
     private Instant timestamp;
 }
 

@@ -16,10 +16,10 @@ import lombok.Setter;
 @Data
 public class InventoryEvent {
     private String productId;
-    private String eventType; // "purchase" or "sale"
+    private String eventType; 
     private int quantity;
-    private BigDecimal unitPrice; // optional for sales
+    private BigDecimal unitPrice; 
     private Instant timestamp;
-    // Getters/Setters
+   
 }
 

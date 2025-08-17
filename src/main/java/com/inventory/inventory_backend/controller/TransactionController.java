@@ -45,7 +45,7 @@ public class TransactionController {
             int quantity = (int) (Math.random() * 10) + 1;
             
             if (i < productIds.length) {
-            	   eventType = "purchase"; // Ensure first few are purchases
+            	   eventType = "purchase"; 
             	}
 
             InventoryEvent event = new InventoryEvent();
@@ -59,16 +59,16 @@ public class TransactionController {
                 event.setUnitPrice(unitPrice);
             }
             
-            producer.sendInventoryEvent(event); // send to Kafka (real-time ingestion)
+            producer.sendInventoryEvent(event); 
             TransactionDTO result;
-            // Also process immediately for dashboard consistency
+           
             try {
             	   result = "purchase".equals(eventType)
             	            ? service.processPurchase(event)
             	            : service.processSale(event);
             	} catch (RuntimeException e) {
             	   System.err.println("⚠️ Skipping event due to: " + e.getMessage());
-            	   continue; // or add to a failed list
+            	   continue; 
             	}
 
             results.add(result);
@@ -86,7 +86,7 @@ public class TransactionController {
         event.setUnitPrice(req.getUnitPrice());
         event.setTimestamp(Instant.now());
 
-        producer.sendInventoryEvent(event); // optional for async
+        producer.sendInventoryEvent(event); 
         return service.processPurchase(event);
     }
 
@@ -98,7 +98,7 @@ public class TransactionController {
         event.setQuantity(req.getQuantity());
         event.setTimestamp(Instant.now());
 
-        producer.sendInventoryEvent(event); // optional for async
+        producer.sendInventoryEvent(event);
         return service.processSale(event);
     }
 }

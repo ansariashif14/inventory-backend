@@ -32,5 +32,5 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private List<InventoryBatch> batches = new ArrayList<>();
 
-    // Getters & Setters
+   
 }
