@@ -1,5 +1,6 @@
 package com.inventory.inventory_backend.controller;
 
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,23 +51,31 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request, HttpServletResponse response) {
         UserDetails user = userService.loadUserByUsername(request.getUsername());
-//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//        String hashed = encoder.encode(request.getPassword());
         Optional<User> userdata = repo.findByUsername(request.getUsername());
-        
-        if (user != null && userdata.get().getPassword().equalsIgnoreCase(user.getPassword())) {
+
+        if (user != null && userdata.isPresent() &&
+            userdata.get().getPassword().equals(user.getPassword())) {  // don't use equalsIgnoreCase for passwords
+
             String token = jwtUtils.generateToken(user.getUsername());
 
+            // (Optional) Set cookie if you still want HttpOnly
             Cookie cookie = new Cookie("jwt", token);
             cookie.setHttpOnly(true);
             cookie.setPath("/");
             cookie.setMaxAge((int) (jwtExpiration / 1000));
             response.addCookie(cookie);
 
-            return ResponseEntity.ok("Login successful");
+            // ✅ Return token as JSON instead of plain string
+            return ResponseEntity.ok(Map.of(
+                "token", token,
+                "username", user.getUsername()
+            ));
         }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                             .body(Map.of("error", "Invalid credentials"));
     }
+
 
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpServletResponse response) {
